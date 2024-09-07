@@ -1,0 +1,22 @@
+---
+import type { Article } from "../../clients/type";
+
+type Props = {
+  article: Article;
+};
+
+const { article } = Astro.props;
+---
+
+<div class="card bg-neutral w-full shrink-0 shadow-2xl">
+  <div class="card-body">
+    <h2 class="card-title">{article.title}</h2>
+    <div class="badge badge-primary">
+      <a href={`/articles/${article.category.id}`}>{article.category.category}</a>
+    </div>
+    <div class="card-actions justify-between">
+      最終更新日: {article.createdAt}
+      <a href={`/articles/${article.id}`} class="link link-primary">Read more &rarr;</a>
+    </div>
+  </div>
+</div>

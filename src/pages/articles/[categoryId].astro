@@ -1,0 +1,31 @@
+---
+import { ArticleClient } from "../../clients/article";
+import { CategoryClient } from "../../clients/category";
+import ArticleCard from "../../components/article/card.astro";
+import Layout from "../../layouts/index.astro";
+
+export const getStaticPaths = async () => {
+  const categories = await CategoryClient.findCategories();
+
+  return await Promise.all(
+    categories.map(async (category) => {
+      const articles = await ArticleClient.findArticles(category.id);
+      return {
+        params: { categoryId: category.id },
+        props: { category, articles },
+      };
+    })
+  );
+};
+
+const { category, articles } = Astro.props;
+---
+
+<Layout>
+  <div class="container mx-auto mt-5">
+    <h1 class="text-2xl font-bold mb-7">{category.category}の記事一覧</h1>
+    <div class="flex flex-col space-y-5">
+      {articles.map((article) => <ArticleCard article={article} />)}
+    </div>
+  </div>
+</Layout>

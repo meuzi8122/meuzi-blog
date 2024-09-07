@@ -1,18 +1,40 @@
 ---
 import Navbar from "../components/navbar.astro";
+import { CategoryClient } from "../clients/category";
 import "../styles/global.css";
+
+const categories = await CategoryClient.findCategories();
 ---
 
 <html lang="ja">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Meuzi Blog</title>
-	</head>
-	<body>
-		<Navbar />
-		<slot></slot>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Meuzi Blog</title>
+  </head>
+  <body>
+    <div class="drawer drawer-end">
+      <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content">
+        <!-- ページコンテンツ -->
+        <Navbar />
+        <slot />
+      </div>
+      <div class="drawer-side">
+        <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
+        <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+          <!-- サイドバーのコンテンツ -->
+          {
+            categories.map((category) => (
+              <li>
+                <a href={`/articles/${category.id}`}>{category.category}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </body>
 </html>

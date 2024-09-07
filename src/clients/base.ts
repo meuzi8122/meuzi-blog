@@ -5,12 +5,13 @@ const client = createClient({
     apiKey: import.meta.env.API_KEY
 });
 
-export const findContents = async (endpoint: string, fields: string, limit?: number): Promise<any[]> => {
+export const findContents = async (endpoint: string, fields: string, filters?: string): Promise<{[key: string]: any}[]> => {
     return (
         await client.getList({
             endpoint: endpoint,
             queries: {
                 fields: fields,
+                filters: filters
             },
         })
     ).contents;

@@ -3,17 +3,20 @@ import { ArticleClient } from "../../clients/article";
 import Layout from "../../layouts/index.astro";
 
 export const getStaticPaths = async () => {
-    const articles = await ArticleClient.findArticles();
+  const articles = await ArticleClient.findArticles();
 
-    return articles.map(article => ({
-        params: { id: article.id },
-        props: { article }
-    }));
-}
+  return articles.map((article) => ({
+    params: { id: article.id },
+    props: { article },
+  }));
+};
 
 const { article } = Astro.props;
 ---
 
 <Layout>
-    <div set:html={article.content} />
+  <div class="container mx-auto">
+    <h1>{article.title}</h1>
+    <Fragment set:html={article.content} />
+  </div>
 </Layout>
