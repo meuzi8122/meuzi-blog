@@ -14,7 +14,7 @@ const { article } = Astro.props;
     <h2 class="card-title">{article.title}</h2>
     <Badge category={article.category} />
     <div class="card-actions justify-between">
-      最終更新日: {article.createdAt}
+      最終更新日: {article.updatedAt}
       <a href={`/articles/${article.id}`} class="link link-primary">Read more &rarr;</a>
     </div>
   </div>

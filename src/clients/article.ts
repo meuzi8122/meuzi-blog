@@ -8,7 +8,7 @@ type Replacement = {
 
 export class ArticleClient {
   private static endpoint = "articles";
-  private static fields = "id,title,content,category.id,category.category,createdAt";
+  private static fields = "id,title,content,category.id,category.category,updatedAt";
 
   static async findArticles(categoryId?: string): Promise<Article[]> {
     const contents = await findContents(
@@ -21,14 +21,14 @@ export class ArticleClient {
   }
 
   private static parseArticle(content: { [key: string]: any }): Article {
-    const createdAt = new Date(content.createdAt);
+    const updatedAt = new Date(content.updatedAt);
 
     return {
       id: content.id,
       title: content.title,
       content: this.applyContentStyle(content.content),
       category: content.category,
-      createdAt: `${createdAt.getFullYear()}/${createdAt.getMonth() + 1}/${createdAt.getDate()}`,
+      updatedAt: `${updatedAt.getFullYear()}/${updatedAt.getMonth() + 1}/${updatedAt.getDate()}`,
     };
   }
 
