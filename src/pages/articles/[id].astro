@@ -1,5 +1,6 @@
 ---
 import { ArticleClient } from "../../clients/article";
+import Badge from "../../components/badge.astro";
 import Layout from "../../layouts/index.astro";
 
 export const getStaticPaths = async () => {
@@ -16,7 +17,9 @@ const { article } = Astro.props;
 
 <Layout>
   <div class="container mx-auto">
-    <h1>{article.title}</h1>
+    {article.createdAt}
+    <h1 class="text-2xl font-bold">{article.title}</h1>
+    <Badge category={article.category} />
     <Fragment set:html={article.content} />
   </div>
 </Layout>

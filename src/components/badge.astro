@@ -1,0 +1,13 @@
+---
+import type { Category } from "../clients/type";
+
+type Props = {
+  category: Category;
+};
+
+const { category } = Astro.props;
+---
+
+<div class="badge badge-primary">
+  <a href={`/articles/${category.id}`}>{category.category}</a>
+</div>
