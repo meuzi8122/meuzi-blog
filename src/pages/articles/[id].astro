@@ -16,10 +16,13 @@ const { article } = Astro.props;
 ---
 
 <Layout>
-  <div class="container mx-auto">
-    {article.createdAt}
-    <h1 class="text-2xl font-bold">{article.title}</h1>
-    <Badge category={article.category} />
-    <Fragment set:html={article.content} />
+  <div class="container mx-auto mt-5 xl:max-w-4xl">
+    <div class="flex flex-col space-y-4">
+      <p>最終更新日: {article.createdAt}</p>
+      <h1 class="text-3xl font-bold">{article.title}</h1>
+      <Badge category={article.category} />
+    </div>
+    <div class="divider"></div>
+    <div set:html={article.content} />
   </div>
 </Layout>
